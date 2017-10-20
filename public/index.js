@@ -7,13 +7,32 @@ var makeRequest = function( url ) {
   request.addEventListener( "load", function() {
     var articleObject = JSON.parse( this.responseText );
     latestArticlesArray = articleObject.articles;
+    render(latestArticlesArray);
     console.log(latestArticlesArray);
   })
   request.send()
 }
 
 var render = function(articleArray){
-  for(var article of)
+  var newsContainer = document.getElementById("latest-news-container");
+  for(var article of articleArray){
+    var photo = document.createElement("img");
+    photo.src = article.urlToImage;
+    newsContainer.appendChild(photo);
+
+    var headline = document.createElement("h3");
+    headline.innerText = article.title;
+    newsContainer.appendChild(headline);
+
+    var lead = document.createElement("p");
+    lead.innerText = article.description;
+    newsContainer.appendChild(lead);
+
+    var link = document.createElement("a");
+    link.href = article.url;
+    link.innerText = "Click here to read more";
+    newsContainer.appendChild(link);
+  }
 }
 
 
